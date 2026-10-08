@@ -30,11 +30,12 @@ export function Testimonials() {
   }, [active])
 
   return (
-    <section className="words" ref={ref} data-nav="dark" aria-label="Kind words">
-      <p className="eyebrow eyebrow--dark" data-fade>Kind words</p>
+    <section className="words" ref={ref} data-nav="dark" aria-labelledby="words-title">
+      <h2 className="words__title" id="words-title">What people said</h2>
       <div className="words__stage" aria-live="polite">
         {testimonials.map((t, i) => (
-          <figure className={`quote${i === active ? ' is-active' : ''}`} key={t.name} aria-hidden={i !== active}>
+          <figure className={`quote${i === active ? ' is-active' : ''}`} key={i} aria-hidden={i !== active}>
+            <p className="quote__stars" aria-label="Rated 10 out of 10">★★★★★</p>
             <blockquote className="quote__text">“{t.quote}”</blockquote>
             <figcaption className="quote__by"><strong>{t.name}</strong> · {t.context}</figcaption>
           </figure>
@@ -43,7 +44,7 @@ export function Testimonials() {
       <div className="words__dots" role="tablist" aria-label="Choose a quote">
         {testimonials.map((t, i) => (
           <button
-            key={t.name}
+            key={i}
             role="tab"
             aria-selected={i === active}
             aria-label={`Quote from ${t.name}`}
@@ -53,6 +54,7 @@ export function Testimonials() {
           ><i /></button>
         ))}
       </div>
+      <p className="words__source">All rated 10/10 on Last Minute Musicians.</p>
     </section>
   )
 }

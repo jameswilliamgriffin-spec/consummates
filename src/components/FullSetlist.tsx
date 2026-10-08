@@ -56,7 +56,6 @@ export function FullSetlist() {
         </button>
 
         <header className="fullset__head">
-          <p className="eyebrow">The Consummates</p>
           <h2 className="fullset__title">The full setlist</h2>
           <p className="fullset__intro">{setlist.intro}</p>
         </header>
@@ -66,7 +65,7 @@ export function FullSetlist() {
           {favourites.map((s) => (
             <li className="fullset__fav" key={s.title}>
               <div className="fullset__fav-cover"><img src={s.cover} alt={`${s.title} cover`} loading="lazy" /></div>
-              <span className="fullset__fav-n">{String(s.favourite).padStart(2, '0')}</span>
+              <span className="fullset__fav-n">No. {s.favourite}</span>
               <p className="fullset__fav-title">{s.title}</p>
               <p className="fullset__artist">{s.artist}</p>
             </li>
@@ -75,9 +74,8 @@ export function FullSetlist() {
 
         <h3 className="fullset__label">The rest of the party</h3>
         <ol className="fullset__list">
-          {rest.map((s, i) => (
+          {rest.map((s) => (
             <li className="fullset__row" key={s.title}>
-              <span className="fullset__n">{String(i + 6).padStart(2, '0')}</span>
               <img className="fullset__cover" src={s.cover} alt="" loading="lazy" width="64" height="64" />
               <span className="fullset__song">{s.title}</span>
               <span className="fullset__artist">{s.artist}</span>
@@ -89,7 +87,6 @@ export function FullSetlist() {
         <ol className="fullset__list">
           {christmas.map((s) => (
             <li className="fullset__row" key={s.title}>
-              <span className="fullset__n">✦</span>
               <img className="fullset__cover" src={s.cover} alt="" loading="lazy" width="64" height="64" />
               <span className="fullset__song">{s.title}</span>
               <span className="fullset__artist">{s.artist}</span>

@@ -43,7 +43,7 @@ const FavLine = ({ m }: { m: Member }) => {
   return (
     <span className="fav">
       {f.cover ? <img src={f.cover} alt="" width="28" height="28" loading="lazy" /> : <Note />}
-      <span><small>Loves playing</small>{f.title}</span>
+      <span>Loves playing <b>{f.title}</b></span>
     </span>
   )
 }
@@ -53,9 +53,8 @@ function Feature({ m, onOpen }: { m: Member; onOpen: (el: HTMLElement) => void }
   const photo = useRef<HTMLDivElement>(null)
   return (
     <button className="feat" data-meet={m.name} onClick={() => onOpen(photo.current!)} aria-label={`Meet ${m.name}, ${m.role}`}>
-      <div className="feat__photo" ref={photo} data-photo={m.name} data-clip><Photo m={m} /></div>
+      <div className="feat__photo" ref={photo} data-photo={m.name}><Photo m={m} /></div>
       <div className="feat__body">
-        <span className="badge">Plays every gig</span>
         <span className="feat__name">{m.name}</span>
         <span className="feat__role">{m.role}</span>
         {m.quote && <span className="feat__quote">{m.quote}</span>}
@@ -71,7 +70,7 @@ function Crew({ m, onOpen }: { m: Member; onOpen: (el: HTMLElement) => void }) {
   return (
     <li>
       <button className="crew" data-meet={m.name} onClick={() => onOpen(photo.current!)} aria-label={`Meet ${m.name}, ${m.role}`}>
-        <div className="crew__frame" data-clip>
+        <div className="crew__frame">
           <div className="crew__photo" ref={photo} data-photo={m.name}><Photo m={m} /></div>
           <span className="crew__shade" aria-hidden="true" />
           <span className="crew__label">
@@ -226,9 +225,8 @@ function Profile({ index, source, onClose, onJump }: {
       {m && (
         <div className="pro__scroll" data-lenis-prevent>
           <div className="pro__grid">
-            <div className="pro__photo"><Photo m={m} />{m.core && <span className="badge pro__badge">Plays every gig</span>}</div>
+            <div className="pro__photo"><Photo m={m} /></div>
             <div className="pro__info">
-              <p className="pro__count">{String(index! + 1).padStart(2, '0')} <span>/ {String(count).padStart(2, '0')}</span></p>
               <h2 className="pro__name">{m.name}</h2>
               <p className="pro__role">{m.role}</p>
               {m.quote && <p className="pro__quote">{m.quote}</p>}
@@ -243,7 +241,7 @@ function Profile({ index, source, onClose, onJump }: {
                     {m.favourites.map((f) => (
                       <li key={f.title}>
                         {f.cover ? <img src={f.cover} alt="" width="52" height="52" loading="lazy" /> : <Note />}
-                        <span>{f.title}{f.artist && <em> — {f.artist}</em>}</span>
+                        <span>{f.title}{f.artist && <em>, {f.artist}</em>}</span>
                       </li>
                     ))}
                   </ul>
@@ -286,9 +284,8 @@ export function Band() {
   return (
     <section className="band" id="band" data-nav="dark">
       <header className="band__head">
-        <p className="eyebrow eyebrow--dark" data-fade>{band.eyebrow}</p>
-        <h2 className="band__title" data-split>{band.title}</h2>
-        <p className="band__intro" data-fade>
+        <h2 className="band__title">{band.title}</h2>
+        <p className="band__intro">
           {band.intro} <strong>Tap anyone to meet them properly.</strong>
         </p>
       </header>

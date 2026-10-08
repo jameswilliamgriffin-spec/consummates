@@ -29,7 +29,7 @@ export const FILM_CONFIG = {
   ],
   // The dive ends by flooding the screen with the chapter colour
   flood: { color: '#2F473A', from: 0.8, to: 0.9 },
-  statement: { text: 'Live music for the best night of your life.', from: 0.88 },
+  statement: { text: 'See you on the dancefloor.', from: 0.88 },
   // Party lights (stage beams + disco glitter) rise behind the statement after the flood
   party: { from: 0.88, to: 0.97 },
 }

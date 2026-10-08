@@ -7,14 +7,14 @@ export const contact = {
   phoneHref: 'tel:+447798561804',
   whatsappHref: 'https://wa.me/447798561804?text=' + encodeURIComponent('Hi Grace! We’d love to check your availability for our wedding on '),
   facebook: 'https://www.facebook.com/TheConsummatesBandUK/',
+  instagram: 'https://www.instagram.com/theconsummatesbanduk/',
   manager: 'Grace',
 }
 
 export const pitch = {
-  eyebrow: 'Live wedding & party band · West Midlands',
   statement:
     'A close-knit band of friends with big harmonies, real musicians and one job on your wedding night: a dancefloor that stays full from your first dance to the very last song.',
-  body: 'Every song played live. Every detail looked after, from the first message to the final encore.',
+  body: 'Everything you hear is played live, and Grace looks after the planning from your first message.',
 }
 
 export const venues = [
@@ -27,24 +27,17 @@ export const venues = [
   'Norbreck Castle, Blackpool',
 ]
 
-export const stats = [
-  { id: 'weddings', value: 50, suffix: '+', label: 'Weddings played' },
-  { id: 'years', value: 4, suffix: '', label: 'Years together' },
-  { id: 'members', value: 6, suffix: '', label: 'Band members' }, // the 6-piece line-up on Gold & Platinum (the full roster, with deps, is 10)
-]
-
 export const story = {
-  eyebrow: 'Our story',
-  title: 'Friends first. Band second. Party always.',
+  title: 'It started with Grace and Mick',
   paragraphs: [
-    'The Consummates started with best friends Grace and Mick and a simple idea: a fun, high-energy party band. Grace brought in her fiancé Kev on drums, and from there the line-up grew into a close-knit group built around friendship, big harmonies and a shared love of great live music.',
-    'We’re friendly, approachable and easy to work with. We care about the little details and we want every couple to feel looked after, from the first enquiry to the final song.',
+    'The Consummates started with best friends Grace and Mick and a simple idea: a fun, high-energy party band. Grace brought in her partner Kev on drums, and from there the line-up grew into a close-knit group built around friendship, big harmonies and a shared love of great live music.',
+    // TODO: a real detail would land better here, e.g. a favourite wedding or venue the band would happily name.
+    'We’re easy to deal with. Grace sorts your booking from the first message, and we take care of the small stuff so you can enjoy the day.',
     'People always tell us we have a great energy on stage. We look like we’re having fun because we are, and that’s contagious on the dancefloor.',
   ],
 }
 
 export const night = {
-  eyebrow: 'Your night',
   title: 'How the evening unfolds',
   hint: 'Keep scrolling: the lights go down as the night goes on.',
   steps: [
@@ -52,8 +45,8 @@ export const night = {
     { time: 'The moment', icon: 'rings', title: 'Your first dance', body: 'Played live, exactly how you’ve imagined it. We’ll learn your song if it isn’t already in our set; that’s included.' },
     { time: 'Set one', icon: 'guitar', title: 'The floor fills', body: 'Songs everyone loves, from the ’60s right up to today: pop, rock, funk and disco, in an order that keeps everyone dancing.' },
     { time: 'Interval', icon: 'coupes', title: 'Food, drinks & DJ', body: 'A flexible break around your evening food. On Gold and Platinum, DJ Nicho keeps the party going between sets.' },
-    { time: 'Set two', icon: 'mic', title: 'The big finish', body: 'The anthems, the singalongs and your requests, finishing the night in style.' },
-    { time: 'Last song', icon: 'disco', title: 'Until the very end', body: 'A full dancefloor, a happy couple and a night your guests will talk about for years.' },
+    { time: 'Set two', icon: 'mic', title: 'The big finish', body: 'The big anthems, the singalongs and your requests.' },
+    { time: 'Last song', icon: 'disco', title: 'Until the very end', body: 'One last song, and everyone on the dancefloor for it.' },
   ],
 }
 
@@ -68,7 +61,6 @@ export type Member = {
 
 // Anything left out shows a gentle "To follow" on the card.
 export const band = {
-  eyebrow: 'Meet the band',
   title: 'The people on your stage',
   intro: 'Grace and Mick play every gig. Every other role has a trusted, rehearsed dep, so we never cancel.',
   members: [
@@ -81,27 +73,32 @@ export const band = {
       background: 'First guitar at 14. First public performance in 1994 at Menzies High School: “beyond terrifying”. Switched to bass in 2002, when he realised it was more fun and his band at the time had too many guitarists.',
       favourites: [{ title: 'Grease', artist: 'Frankie Valli', cover: '/img/covers/grease.webp' }],
       fact: 'Once met Michael Sheen and called him Martin by mistake. “I get that a lot,” he replied.' },
-    { name: 'Martin', role: 'Guitar',
+    { name: 'Martin', role: 'Guitar', photo: '/img/band/martin.webp',
       background: '32 years on guitar, including keys and guitar in Blondie tribute band Once More Into The Bleach. Best gig: Liverpool’s Mathew Street Festival.',
       favourites: [{ title: 'Proud Mary', artist: 'Ike & Tina Turner', cover: '/img/covers/proud-mary.webp' }],
       fact: 'Playing at the Rose of Tralee festival in Ireland, he was asked to lend his acoustic guitar to the boy band on after them. It turned out to be Westlife.' },
-    { name: 'Justin', role: 'Lead guitar',
+    { name: 'Justin', role: 'Lead guitar', photo: '/img/band/justin.webp',
       background: 'Played in a Queen tribute act after winning a worldwide Brian May guitar-playing contest. Fronted originals band Duck Thieves, supporting The Specials and playing festivals across the UK, and took part in a 100-piece guitar orchestra in Rome.',
       favourites: [{ title: 'Don’t Stop Me Now', artist: 'Queen', cover: '/img/covers/don-t-stop-me-now.webp' }],
       fact: 'Prefers to play barefoot, but will wear shoes for special occasions.' },
-    { name: 'Anneka', role: 'Backing vocals',
+    { name: 'Anneka', role: 'Backing vocals', photo: '/img/band/anneka.webp',
       background: 'An experienced, versatile vocalist performing gospel, soul, Motown, R&B and pop at popular venues across Birmingham, the Midlands and cities throughout the UK over the last 20 years. As well as the Cover Ducks and The Consummates, she performs as part of a dynamic 7-piece band, moving seamlessly between lead vocals and backing harmonies, alongside her growing work as a solo artist.',
-      favourites: [{ title: 'Ain’t No Mountain High Enough' }, { title: 'If I Ain’t Got You', artist: 'Alicia Keys' }] },
-    { name: 'Kev', role: 'Drums', photo: '/img/band/kev.webp' },
+      favourites: [{ title: 'Ain’t No Mountain High Enough' }, { title: 'If I Ain’t Got You', artist: 'Alicia Keys' }],
+      fact: 'Nigerian cuisine is her favourite.' },
+    { name: 'Kev', role: 'Drums', photo: '/img/band/kev.webp',
+      background: 'Half of the rhythm section and the driving force behind the band. He enjoys playing all genres, but has a passion for disco and funk.',
+      favourites: [{ title: 'Summer of ’69', artist: 'Bryan Adams', cover: '/img/covers/summer-of-69.webp' }],
+      fact: 'Loved break dancing and body popping as a teenager, and can still do the moonwalk!' },
     { name: 'Chris', role: 'Drums' },
-    { name: 'John', role: 'Keys' },
-    { name: 'Maddy', role: 'Backing vocals', photo: '/img/band/maddy.webp' },
-    { name: 'Betsy', role: 'Backing vocals' },
+    { name: 'John', role: 'Keys', photo: '/img/band/john.webp' },
+    { name: 'Maddy', role: 'Backing vocals', photo: '/img/band/maddy.webp',
+      background: 'Trained in musical theatre at the University of Chichester, where she took a degree in Musical Theatre Performance, then went on to sing soul, pop and rock in cover bands. She also teaches singing in schools and privately.',
+      favourites: [{ title: 'Grease', artist: 'Frankie Valli', cover: '/img/covers/grease.webp' }] },
+    { name: 'Betsy', role: 'Backing vocals', photo: '/img/band/betsy.webp' },
   ] as Member[],
 }
 
 export const gallery = {
-  eyebrow: 'In the moment',
   title: 'Real nights. Real dancefloors.',
   images: Array.from({ length: 11 }, (_, i) => `/img/gallery/live-${String(i + 1).padStart(2, '0')}.webp`),
 }
@@ -109,7 +106,6 @@ export const gallery = {
 export type Song = { title: string; artist: string; cover: string; favourite?: number; christmas?: boolean }
 
 export const setlist = {
-  eyebrow: 'The setlist',
   title: 'Floor-fillers, start to finish',
   intro: 'A taste of what we play. Couples can choose and veto songs, and pick three extra requests.',
   cta: 'View the full setlist',
@@ -153,7 +149,6 @@ export const setlist = {
 }
 
 export const packages = {
-  eyebrow: 'Packages',
   title: 'Simple, honest pricing',
   intro: 'No hidden extras. Peak dates are quoted individually.',
   tiers: [
@@ -178,32 +173,38 @@ export const packages = {
 }
 
 export const booking = {
-  eyebrow: 'How booking works',
-  title: 'From first message to last song',
+  title: 'How booking works',
   steps: [
     { title: 'Enquire', body: 'Send us your date and venue by WhatsApp, email or phone.' },
     { title: 'Check & quote', body: 'Grace checks availability and sends your quote and package options.' },
     { title: 'Secure your date', body: 'We send a booking agreement, and a 20% deposit makes your date officially yours.' },
     { title: 'Plan the night', body: 'We collect the details: venue, timings, first dance, set preferences and special requests.' },
-    { title: 'Final check-in', body: 'A last catch-up before the day, so everything’s confirmed and nothing’s left to chance.' },
+    { title: 'Final check-in', body: 'A last catch-up before the day to confirm timings and songs.' },
     { title: 'Party time', body: 'We arrive, set up and soundcheck, then it’s live music and a full dancefloor.' },
   ],
 }
 
 export const events = {
-  eyebrow: 'Not just weddings',
   title: 'Corporate parties, Christmas dos and big birthdays too.',
-  body: 'The same live show, for any celebration that deserves a full dancefloor.',
+  body: 'We bring the same show to work dos and birthdays as we do to weddings.',
   list: ['Corporate events', 'Christmas parties', 'Birthdays', 'Awards evenings', 'Charity events', 'Conventions', 'Private celebrations'],
   cta: 'Ask about your event',
 }
 
-// Quotes are verbatim (Cover Ducks reviews, same core members); trimmed only where marked with …
+// From the band's Last Minute Musicians listing (all rated 10/10, written when the band was called
+// The Cover Ducks). Excerpts in the clients' own words, trimmed with "…" to drop the old name and keep
+// them short; spelling and punctuation lightly tidied.
 export const testimonials = [
-  { quote: '…Superb! Very professional, great musicians and easy to communicate with. All our guests were up dancing from start to finish and had a brilliant time.', name: 'Joe Crawford', context: 'Wedding party' },
-  { quote: 'These guys are amazing! … They get the crowd going, so easy to work with and all round professional!', name: 'Mark Wilson', context: 'The Royal Oak' },
-  { quote: 'WOW what a fantastic band, ladies you can sing. Great evening, dancers on the second song. Different genres to suit everyone.', name: 'Helen James', context: 'Cubbington Sports & Social Club' },
-  { quote: 'They were awesome. So much so that we’ve booked them in for Easter Sunday. Would certainly recommend.', name: 'Chris Mason', context: 'The Brasshouse, Birmingham' },
+  { quote: 'Superb! Very professional, great musicians and easy to communicate with. All our guests were up dancing from start to finish and had a brilliant time… Thanks for adding so much to our special day!', name: 'Joe', context: 'Wedding' },
+  { quote: 'They were so much fun, everyone was up dancing immediately… We were able to change songs we didn’t like and they even arranged a DJ for afterwards. Best wedding band ever!', name: 'Becki', context: 'Wedding' },
+  { quote: 'An awesome band who we recently had the pleasure of enjoying at a friend’s wedding. Great vocals and amazing musicians. Would definitely recommend.', name: 'Tajinder', context: 'Wedding guest' },
+  { quote: 'From the first contact and at such a hard time, they were great… When it was time to play, wow, everyone from young to old loved their sound and energy. I can’t recommend them enough.', name: 'Helen', context: 'Celebration of life' },
+  { quote: 'Brilliant from start to finish. Great energy, real crowd-pleasers and hit after hit. The six-piece band sounded fantastic, and the planning and communication beforehand were excellent too.', name: 'Paul', context: 'Son’s 21st birthday party' },
+  { quote: 'The word incredible doesn’t even sum these guys up enough… They brought such a good vibe to our party, getting everyone up dancing. They even personalised a song for our group.', name: 'Krissie', context: 'Private party' },
+  { quote: 'Professional, friendly, full of personality, and the voices and skill!!! The talent on display was evident. Thank you so much!', name: 'Becky', context: '40th birthday party' },
+  { quote: 'A big thank you for making my partner’s 60th birthday the best ever! You guys were amazing and everyone loved you!', name: 'Yaz', context: '60th birthday party' },
+  { quote: 'They were just fabulous. They had a great variety of songs, and the audience was loving it. Would definitely recommend!', name: 'Kelly', context: 'Charity ball' },
+  { quote: 'We could not have been happier. They brought the energy and the hits!! Would definitely recommend.', name: 'Sam', context: 'Festival headliner' },
 ]
 
 export const faq = [

@@ -55,7 +55,7 @@ export function Hero() {
           <Logo />
         </h1>
         <div className="hero__cta">
-          <button className="btn btn--ghost" data-magnetic onClick={openFilm}>
+          <button className="btn btn--ghost" onClick={openFilm}>
             <span className="btn__play" aria-hidden="true" />Watch us play.
           </button>
         </div>
@@ -63,7 +63,6 @@ export function Hero() {
       <div className="hero__foot">
         <p className="hero__eyebrow">Live wedding &amp; party band · West Midlands</p>
         <p className="hero__line">Your first dance to the very last song</p>
-        <span className="hero__scroll"><i />Scroll</span>
       </div>
     </section>
   )

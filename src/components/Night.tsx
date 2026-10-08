@@ -4,10 +4,8 @@
    an icon travels the timeline (sun → sunset → moon → disco ball) and the card in focus lights up. */
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { GodRays } from '@paper-design/shaders-react'
 import { night } from '../content'
-import { OUT, reduceMotion } from '../lib/motion'
-import { LITE, ShaderBox } from './ShaderBox'
+import { reduceMotion } from '../lib/motion'
 import { NightIcon } from './NightIcons'
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
@@ -95,14 +93,6 @@ export function Night() {
       })
       tl.to(track, { x: () => -distance(), ease: 'none' }, 0)
       update(0)
-
-      // numbers rise in as each card arrives
-      cards.forEach((card) => {
-        gsap.from(card.querySelector('.night__num'), {
-          yPercent: 40, opacity: 0, duration: 1.1, ease: OUT,
-          scrollTrigger: { trigger: card, containerAnimation: tl, start: 'left 85%', toggleActions: 'play none none reverse' },
-        })
-      })
     })
     return () => mm.revert()
   }, [])
@@ -110,40 +100,20 @@ export function Night() {
   const n = night.steps.length
   return (
     <section className="night" id="night" ref={ref}>
-      <ShaderBox className="night__shader">
-        <GodRays
-          {...LITE}
-          style={{ width: '100%', height: '100%' }}
-          colorBack="#0E1712"
-          colorBloom="#C8A86B"
-          colors={['#E0B96599', '#F6F1E955', '#2E926688']}
-          density={0.25}
-          spotty={0.3}
-          midSize={0.2}
-          midIntensity={0.35}
-          intensity={0.6}
-          bloom={0.4}
-          offsetY={-0.65}
-          speed={reduceMotion ? 0 : 0.6}
-        />
-      </ShaderBox>
       <div className="night__tint night__tint--afternoon" aria-hidden="true" />
       <div className="night__tint night__tint--dusk" aria-hidden="true" />
       <div className="night__tint night__tint--party" aria-hidden="true" />
 
       <div className="night__head">
-        <p className="eyebrow" data-fade>{night.eyebrow}</p>
-        <h2 className="night__title" data-split>{night.title}</h2>
-        <p className="night__hint" data-fade>{night.hint}</p>
+        <h2 className="night__title">{night.title}</h2>
+        <p className="night__hint">{night.hint}</p>
       </div>
 
       <ol className="night__track">
         {night.steps.map((s, i) => (
           <li className={`night__card${i === 0 ? ' is-active is-seen' : ''}`} key={s.title}>
             <div className="night__art">
-              <span className="night__glow" aria-hidden="true" />
               <NightIcon name={s.icon} />
-              <span className="night__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             </div>
             <div className="night__text">
               <p className="night__time">{s.time}</p>

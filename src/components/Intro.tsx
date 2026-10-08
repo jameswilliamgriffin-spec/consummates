@@ -1,12 +1,10 @@
-/* Elevator pitch + venue marquee + stats, on ivory. This block stays pinned while the
-   scroll film slides up over it like a card (see Stack in App). */
+/* Elevator pitch + venue marquee, on ivory, straight after the hero. */
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { pitch, venues } from '../content'
 import { reduceMotion, scrollToHash } from '../lib/motion'
 import { DiscoBall } from './DiscoBall'
-import { Stats } from './Stats'
 
 function Marquee() {
   const ref = useRef<HTMLDivElement>(null)
@@ -62,9 +60,7 @@ export function Intro() {
 
   return (
     <section className="intro" data-nav="dark" aria-label="About The Consummates" ref={ref}>
-      <div className="intro__dim" aria-hidden="true" />
       <div className="intro__inner">
-        <p className="eyebrow eyebrow--dark" data-fade>{pitch.eyebrow}</p>
         <p className="intro__statement">
           {words.map((w, i) => (
             <span key={i}>
@@ -81,17 +77,16 @@ export function Intro() {
             </span>
           ))}
         </p>
-        <p className="intro__body" data-fade>{pitch.body}</p>
-        <div className="intro__actions" data-fade>
-          <a className="btn btn--solid" href="#night" data-magnetic
+        <p className="intro__body">{pitch.body}</p>
+        <div className="intro__actions">
+          <a className="btn btn--solid" href="#night"
             onClick={(e) => { e.preventDefault(); scrollToHash('#night') }}>Your Evening</a>
         </div>
       </div>
 
-      <p className="intro__venues-label" data-fade>Recently played</p>
+      <p className="intro__venues-label">Recently played</p>
       <Marquee />
 
-      <Stats />
     </section>
   )
 }

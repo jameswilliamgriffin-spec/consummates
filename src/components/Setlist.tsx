@@ -69,18 +69,17 @@ export function Setlist() {
       </ShaderBox>
       <div className="setlist__inner">
         <header className="setlist__head">
-          <p className="eyebrow eyebrow--dark" data-fade>{setlist.eyebrow}</p>
-          <h2 className="setlist__title" data-split>{setlist.title}</h2>
-          <p className="setlist__intro" data-fade>{setlist.intro}</p>
+          <h2 className="setlist__title">{setlist.title}</h2>
+          <p className="setlist__intro">{setlist.intro}</p>
         </header>
       </div>
 
-      <div className="setlist__rows" data-fade>
+      <div className="setlist__rows">
         {rows.map((r, i) => <Row songs={r} index={i} key={i} />)}
       </div>
 
-      <div className="setlist__cta" data-fade>
-        <button className="btn btn--dark" data-magnetic onClick={openSetlist}>
+      <div className="setlist__cta">
+        <button className="btn btn--dark" onClick={openSetlist}>
           {setlist.cta}
           <svg className="btn__icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M9 18V5l11-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="17" cy="16" r="3" />

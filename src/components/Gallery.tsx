@@ -30,8 +30,7 @@ export function Gallery() {
   return (
     <section className="gallery" ref={ref} aria-label={gallery.title}>
       <header className="gallery__head">
-        <p className="eyebrow" data-fade>{gallery.eyebrow}</p>
-        <h2 className="gallery__title" data-split>{gallery.title}</h2>
+        <h2 className="gallery__title">{gallery.title}</h2>
       </header>
       {row(a, 'gallery__row--a')}
       {row(b, 'gallery__row--b')}

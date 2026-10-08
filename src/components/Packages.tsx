@@ -102,11 +102,11 @@ export function Packages() {
   }, [])
 
   return (
-    <section className="packages" id="packages" ref={ref}>
+    <section className="packages stack-under" id="packages" ref={ref}>
+      <div className="stack-under__dim" aria-hidden="true" />
       <header className="packages__head">
-        <p className="eyebrow" data-fade>{packages.eyebrow}</p>
-        <h2 className="packages__title" data-split>{packages.title}</h2>
-        <p className="packages__intro" data-fade>{packages.intro}</p>
+        <h2 className="packages__title">{packages.title}</h2>
+        <p className="packages__intro">{packages.intro}</p>
       </header>
 
       <div className="tiers">
@@ -132,7 +132,7 @@ export function Packages() {
               <ul className="tier__list">
                 {t.features.map((f) => <li key={f}>{f}</li>)}
               </ul>
-              <a className="btn btn--tier" href="#contact" data-magnetic="0.2"
+              <a className="btn btn--tier" href="#contact"
                 onClick={(e) => { e.preventDefault(); scrollToHash('#contact') }}>Book {t.name}</a>
             </div>
           </article>
@@ -140,7 +140,7 @@ export function Packages() {
       </div>
 
       <div className="inc">
-        <h3 className="inc__title" data-fade>{packages.includedTitle}</h3>
+        <h3 className="inc__title">{packages.includedTitle}</h3>
         <ul className="inc__list">
           {packages.included.map((i) => (
             <li className="inc__item" key={i.title}>
@@ -153,12 +153,12 @@ export function Packages() {
       </div>
 
       <div className="extras">
-        <h3 className="inc__title" data-fade>{packages.extrasTitle}</h3>
+        <h3 className="inc__title">{packages.extrasTitle}</h3>
         <div className="extras__grid">
           {packages.extras.map((x) => {
             const Icon = BIG[x.icon]
             return (
-              <article className="extra" key={x.name} data-fade>
+              <article className="extra" key={x.name}>
                 <div className="extra__medal"><Icon /></div>
                 <div className="extra__text">
                   <p className="extra__role">Add-on · {x.role}</p>

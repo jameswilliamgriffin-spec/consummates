@@ -1,4 +1,4 @@
-/* Contact: three ways to reach Grace (email, WhatsApp, phone), with drawn line icons. */
+/* Contact: heading and socials on the left, the three ways to reach Grace (WhatsApp, email, phone) as rows on the right. */
 import { MeshGradient } from '@paper-design/shaders-react'
 import { contact } from '../content'
 import { reduceMotion } from '../lib/motion'
@@ -30,6 +30,11 @@ const ways = [
   { key: 'phone', label: 'Call', value: contact.phoneDisplay, href: contact.phoneHref },
 ] as const
 
+const socials = [
+  { label: 'Facebook', href: contact.facebook, icon: <path d="M27 42V26h5.5l.9-6.5H27v-4.2c0-1.9.6-3.2 3.3-3.2H34V6.3c-.6-.1-2.7-.3-5.1-.3-5.1 0-8.4 3.1-8.4 8.7v4.8H15V26h5.5v16" /> },
+  { label: 'Instagram', href: contact.instagram, icon: <><rect x="8" y="8" width="32" height="32" rx="9" /><circle cx="24" cy="24" r="7.5" /><circle cx="33.5" cy="14.5" r="1.4" className="social__dot" /></> },
+]
+
 export function Contact() {
   return (
     <section className="contact" id="contact">
@@ -45,18 +50,31 @@ export function Contact() {
         />
       </ShaderBox>
       <div className="contact__inner">
-        <p className="eyebrow" data-fade>Get in touch</p>
-        <h2 className="contact__title" data-split>Let’s make it a night to remember.</h2>
-        <p className="contact__intro" data-fade>
-          Tell {contact.manager} your date and venue. She usually replies within 12 hours.
-        </p>
-        <ul className="ways" data-fade="stagger">
+        <div className="contact__lead">
+          <h2 className="contact__title">Is your date free?</h2>
+          <p className="contact__intro">
+            Send {contact.manager} your date and venue and she’ll let you know. She usually replies within 12 hours.
+          </p>
+          <div className="socials">
+            <p className="socials__label">Or follow us</p>
+            <ul className="socials__list">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a className="social" href={s.href} target="_blank" rel="noopener">
+                    <svg viewBox="0 0 48 48" aria-hidden="true">{s.icon}</svg>
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <ul className="ways">
           {ways.map((w) => (
             <li key={w.key}>
               <a
                 className="way"
                 href={w.href}
-                data-magnetic="0.12"
                 {...('external' in w ? { target: '_blank', rel: 'noopener' } : {})}
               >
                 <span className="way__icon">{icons[w.key]}</span>

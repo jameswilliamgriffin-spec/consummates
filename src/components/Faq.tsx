@@ -7,10 +7,9 @@ export function Faq() {
   return (
     <section className="faq" id="faq" data-nav="dark">
       <header className="faq__head">
-        <p className="eyebrow eyebrow--dark" data-fade>Good to know</p>
-        <h2 className="faq__title" data-split>Questions couples ask</h2>
+        <h2 className="faq__title">Questions couples ask</h2>
       </header>
-      <div className="faq__list" data-fade="stagger">
+      <div className="faq__list">
         {faq.map((item, i) => {
           const isOpen = open === i
           return (
