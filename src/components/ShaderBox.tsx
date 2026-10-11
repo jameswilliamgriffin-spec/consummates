@@ -1,24 +1,28 @@
-/* Mounts a WebGL shader only while its section is near the viewport, so the page never
-   runs more than a couple of GPU contexts at once. Reduced motion freezes the animation. */
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Component, lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
+import { reduceMotion } from '../lib/motion'
 
-/* Soft, blurry gradients look identical at 1× and capped resolution, at a fraction of the GPU cost.
-   (The library default is 2× pixel ratio, up to 8.3M pixels per frame.) */
-export const LITE = { minPixelRatio: 1, maxPixelCount: 1_400_000 }
-/* Shaders with fine detail (glitter dots) keep a little more resolution */
-export const CRISP = { minPixelRatio: 1, maxPixelCount: 2_400_000 }
+const Backdrop = lazy(() => import('./Backdrop'))
+class BackdropBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() { return { failed: true } }
+  render() { return this.state.failed ? null : this.props.children }
+}
 
-export function ShaderBox({ children, className = '' }: { children: ReactNode; className?: string }) {
+// Decorative WebGL is optional: CSS provides the base appearance. Load its code
+// only on entry, and release GPU contexts offscreen or when the tab is hidden.
+export function ShaderBox({ preset, className = '' }: { preset: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { rootMargin: '300px 0px' })
+    if (reduceMotion) return
+    let inView = false
+    const update = () => setVisible(inView && !document.hidden)
+    const io = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; update() })
     io.observe(ref.current!)
-    return () => io.disconnect()
+    document.addEventListener('visibilitychange', update)
+    return () => { io.disconnect(); document.removeEventListener('visibilitychange', update) }
   }, [])
-  return (
-    <div ref={ref} className={`shader ${className}`} aria-hidden="true">
-      {visible && children}
-    </div>
-  )
+  return <div ref={ref} className={`shader ${className}`} aria-hidden="true">
+    {visible && <BackdropBoundary><Suspense fallback={null}><Backdrop preset={preset} /></Suspense></BackdropBoundary>}
+  </div>
 }

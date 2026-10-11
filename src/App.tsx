@@ -1,7 +1,5 @@
 import { useLayoutEffect } from 'react'
-import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Preloader } from './components/Preloader'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { Intro } from './components/Intro'
@@ -19,43 +17,24 @@ import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { FilmModal } from './components/FilmModal'
 import { FullSetlist } from './components/FullSetlist'
-import { initAnimations } from './lib/animations'
-import { reduceMotion } from './lib/motion'
-
-/* The scroll film slides up over the section before it (Packages) like a card being laid on top:
-   that section pins at its bottom edge, shrinks back and dims, while the film's rounded top corners
-   square off as it lands. */
-function useStack() {
-  useLayoutEffect(() => {
-    if (reduceMotion) return
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: '.stack-under', start: 'bottom bottom', endTrigger: '.film', end: 'top top',
-        pin: true, pinSpacing: false,
-      })
-      const arrive = { trigger: '.film', start: 'top bottom', end: 'top top', scrub: true }
-      gsap.fromTo('.stack-under', { scale: 1 }, { scale: 0.9, ease: 'none', scrollTrigger: arrive })
-      gsap.fromTo('.stack-under__dim', { opacity: 0 }, { opacity: 1, ease: 'none', scrollTrigger: arrive })
-      gsap.fromTo('.film', { '--r': '32px' }, { '--r': '0px', ease: 'power2.in', scrollTrigger: arrive })
-    })
-    return () => ctx.revert()
-  }, [])
-}
 
 export default function App() {
-  useStack()
   useLayoutEffect(() => {
-    const cleanup = initAnimations()
     ScrollTrigger.sort() // pins were created by different components; put them in page order
     ScrollTrigger.refresh()
-    return cleanup
+    let cancelled = false
+    void document.fonts.ready.then(() => { if (!cancelled) ScrollTrigger.refresh() })
+    if (location.hash) {
+      try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView() } catch { /* malformed hash: leave the page at its current position */ }
+    }
+    return () => { cancelled = true }
   }, [])
 
   return (
     <>
-      <Preloader />
+      <a className="skip-link" href="#main">Skip to content</a>
       <Nav />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <Intro />
         <Band />

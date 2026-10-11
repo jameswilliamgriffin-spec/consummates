@@ -1,5 +1,6 @@
 /* FAQ accordion. Heights animate with the CSS grid 0fr → 1fr trick (no measuring). */
 import { useState } from 'react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { faq } from '../content'
 
 export function Faq() {
@@ -26,7 +27,7 @@ export function Faq() {
                   <i className="faq__icon" aria-hidden="true" />
                 </button>
               </h3>
-              <div className="faq__a" id={`faq-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+              <div className="faq__a" onTransitionEnd={e => { if (e.target === e.currentTarget) ScrollTrigger.refresh() }} aria-hidden={!isOpen} inert={!isOpen} id={`faq-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
                 <div><p>{item.a}</p></div>
               </div>
             </div>

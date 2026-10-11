@@ -134,7 +134,8 @@ export function DiscoBall({ className = '' }: { className?: string }) {
 
   useEffect(() => {
     const cv = canvas.current!
-    const ctx = cv.getContext('2d')!
+    const ctx = cv.getContext('2d')
+    if (!ctx) return
     let raf = 0
     let visible = false
     const t0 = performance.now()
@@ -144,22 +145,33 @@ export function DiscoBall({ className = '' }: { className?: string }) {
       const w = Math.round(cv.clientWidth * dpr), h = Math.round(cv.clientHeight * dpr)
       if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h }
     }
+    let lastFrame = 0
     const frame = (now: number) => {
-      size()
-      draw(ctx, cv.width, cv.height, (now - t0) / 1000)
-      raf = visible ? requestAnimationFrame(frame) : 0
+      if (now - lastFrame >= 1000 / 30) {
+        draw(ctx, cv.width, cv.height, (now - t0) / 1000)
+        lastFrame = now
+      }
+      raf = visible && !document.hidden ? requestAnimationFrame(frame) : 0
     }
+    const resize = new ResizeObserver(() => { size(); if (reduceMotion) draw(ctx, cv.width, cv.height, 1.4) })
+    resize.observe(cv)
+    size()
 
     if (reduceMotion) {
       size(); draw(ctx, cv.width, cv.height, 1.4) // one still frame
-      return
+      return () => resize.disconnect()
+    }
+    const update = () => {
+      if (visible && !document.hidden && !raf) raf = requestAnimationFrame(frame)
+      else if (!visible || document.hidden) { cancelAnimationFrame(raf); raf = 0 }
     }
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting
-      if (visible && !raf) raf = requestAnimationFrame(frame)
+      update()
     })
     io.observe(wrap.current!)
-    return () => { io.disconnect(); cancelAnimationFrame(raf) }
+    document.addEventListener('visibilitychange', update)
+    return () => { io.disconnect(); resize.disconnect(); cancelAnimationFrame(raf); document.removeEventListener('visibilitychange', update) }
   }, [])
 
   return (

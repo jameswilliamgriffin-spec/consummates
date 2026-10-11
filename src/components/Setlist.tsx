@@ -2,11 +2,9 @@
    Hover (or tap) a title and its cover pops up; a row pauses while you're over it.
    "View the full setlist" opens the full list as a page that slides up (FullSetlist). */
 import { useState } from 'react'
-import { GrainGradient } from '@paper-design/shaders-react'
 import { setlist, type Song } from '../content'
-import { reduceMotion } from '../lib/motion'
-import { LITE, ShaderBox } from './ShaderBox'
-import { openSetlist } from './FullSetlist'
+import { ShaderBox } from './ShaderBox'
+import { openSetlist } from '../lib/dialogEvents'
 
 const ROWS = 3
 const DURATIONS = [70, 84, 76] // seconds per loop, per row
@@ -54,19 +52,7 @@ export function Setlist() {
 
   return (
     <section className="setlist" id="setlist" data-nav="dark">
-      <ShaderBox className="setlist__shader">
-        <GrainGradient
-          {...LITE}
-          style={{ width: '100%', height: '100%' }}
-          colorBack="#E9CF93"
-          colors={['#F6E6B8', '#C8A04F', '#A87E33', '#FBF1D3']}
-          shape="wave"
-          softness={0.8}
-          intensity={0.42}
-          noise={0.28}
-          speed={reduceMotion ? 0 : 0.75}
-        />
-      </ShaderBox>
+      <ShaderBox className="setlist__shader" preset="setlist" />
       <div className="setlist__inner">
         <header className="setlist__head">
           <h2 className="setlist__title">{setlist.title}</h2>

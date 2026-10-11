@@ -2,13 +2,16 @@
 // Items marked PLACEHOLDER still need real content from the band.
 
 export const contact = {
-  email: 'info@theconsummates.co.uk', // NOTE: Grace says this mailbox isn't set up yet
   phoneDisplay: '07798 561804',
   phoneHref: 'tel:+447798561804',
+  email: 'gracieryder@hotmail.co.uk', // Grace's own inbox; the site only shows an "Email Grace" button, not the address
   whatsappHref: 'https://wa.me/447798561804?text=' + encodeURIComponent('Hi Grace! We’d love to check your availability for our wedding on '),
   facebook: 'https://www.facebook.com/TheConsummatesBandUK/',
   instagram: 'https://www.instagram.com/theconsummatesbanduk/',
   manager: 'Grace',
+  // Web3Forms access key for the enquiry form (web3forms.com). Not secret: it can only send to the
+  // inbox it was created for. Leave empty and the form runs in preview mode (nothing is sent).
+  formAccessKey: '',
 }
 
 export const pitch = {
@@ -62,12 +65,13 @@ export type Member = {
 // Anything left out shows a gentle "To follow" on the card.
 export const band = {
   title: 'The people on your stage',
-  intro: 'Grace and Mick play every gig. Every other role has a trusted, rehearsed dep, so we never cancel.',
+  intro: 'Grace and Mick play every gig. Every other role has a trusted, rehearsed deputy musician.',
   members: [
     { name: 'Grace', role: 'Lead vocals & band manager', core: true, photo: '/img/band/grace.webp',
       quote: 'Big vocals, infectious energy and plenty of personality in every performance.',
       background: 'Grace is a seasoned live vocalist with years of experience performing in full bands, duos and smaller acoustic projects. She has performed at weddings, corporate events, festivals, private parties and busy live venues across the Midlands, including Villa Park. Her musical background spans pop, rock, soul, disco and classic party anthems, with a particular love of strong female vocals and harmonies.',
-      favourites: [{ title: 'Take It Easy', artist: 'Eagles', cover: '/img/covers/take-it-easy.webp' }] },
+      favourites: [{ title: 'Take It Easy', artist: 'Eagles', cover: '/img/covers/take-it-easy.webp' }],
+      fact: 'She was once expelled from a school.' },
     { name: 'Mick', role: 'Bass & logistics', core: true, photo: '/img/band/mick.webp',
       quote: 'You hear the music, but you feel the bass.',
       background: 'First guitar at 14. First public performance in 1994 at Menzies High School: “beyond terrifying”. Switched to bass in 2002, when he realised it was more fun and his band at the time had too many guitarists.',
@@ -89,8 +93,20 @@ export const band = {
       background: 'Half of the rhythm section and the driving force behind the band. He enjoys playing all genres, but has a passion for disco and funk.',
       favourites: [{ title: 'Summer of ’69', artist: 'Bryan Adams', cover: '/img/covers/summer-of-69.webp' }],
       fact: 'Loved break dancing and body popping as a teenager, and can still do the moonwalk!' },
-    { name: 'Chris', role: 'Drums' },
-    { name: 'John', role: 'Keys', photo: '/img/band/john.webp' },
+    { name: 'Chris', role: 'Drums', photo: '/img/band/chris.webp',
+      background: 'Chris has been playing drums in bands since his teens, performing with original acts, tribute bands, theatre shows and cover bands. Along the way, he’s built a huge repertoire and a feel for taking each song wherever it needs to go. He’s comfortable in any style, but especially loves anything funky or with a great groove.',
+      favourites: [{ title: 'Le Freak', artist: 'Chic' }, { title: 'Rosanna', artist: 'Toto' }],
+      fact: 'Chris also plays guitar and piano. You might spot him riding his motorbike with a guitar strapped to his back.' },
+    { name: 'John', role: 'Keyboards', photo: '/img/band/john.webp',
+      quote: 'Head loves 80s pop, body loves 90s indie, heart loves rock & roll.',
+      background: 'Many years of playing and lots of bands: The Heels, Chaos Covers, The Big Easy, Taste Division, Blues Remedy and Real Human Beings. Some great gigs too, including Boomtown, Pride, Latitude and Shambala.',
+      favourites: [
+        { title: 'A Little Respect', artist: 'Erasure', cover: '/img/covers/a-little-respect.webp' },
+        { title: 'Mamma Mia', artist: 'ABBA', cover: '/img/covers/mamma-mia.webp' },
+        { title: 'As It Was', artist: 'Harry Styles', cover: '/img/covers/as-it-was.webp' },
+        { title: 'Walk of Life', artist: 'Dire Straits', cover: '/img/covers/walk-of-life.webp' },
+      ],
+      fact: 'Best wedding moment ever: the drunk groom takes a bad fall on the dancefloor, the band stops and everyone holds their breath. He rises triumphantly to his feet, the band launches straight into I’m Still Standing, and cheers all round.' },
     { name: 'Maddy', role: 'Backing vocals', photo: '/img/band/maddy.webp',
       background: 'Trained in musical theatre at the University of Chichester, where she took a degree in Musical Theatre Performance, then went on to sing soul, pop and rock in cover bands. She also teaches singing in schools and privately.',
       favourites: [{ title: 'Grease', artist: 'Frankie Valli', cover: '/img/covers/grease.webp' }] },
@@ -150,11 +166,11 @@ export const setlist = {
 
 export const packages = {
   title: 'Simple, honest pricing',
-  intro: 'No hidden extras. Peak dates are quoted individually.',
+  intro: 'No hidden extras.',
   tiers: [
     { name: 'Silver', metal: 'silver', price: '£1,100', features: ['2 × 45-minute live sets', 'Backing music between sets', '100% live', '5-piece band'] },
     { name: 'Gold', metal: 'gold', price: '£1,250', features: ['2 × 45-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band'], featured: true },
-    { name: 'Platinum', metal: 'platinum', price: '£1,400', features: ['2 × 60-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band', 'Your first dance played live'] },
+    { name: 'Platinum', metal: 'platinum', price: '£1,400', features: ['2 × 60-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band'] },
   ],
   includedTitle: 'Every package includes',
   included: [
@@ -163,7 +179,7 @@ export const packages = {
     { icon: 'calendar', title: 'Planning call', body: 'Timings, songs and details' },
     { icon: 'shield', title: 'Fully insured', body: '£5m public liability (Aviva)' },
     { icon: 'plug', title: 'PAT tested', body: 'All equipment, August 2025' },
-    { icon: 'pin', title: 'Travel included', body: 'Within 2 hours of the West Midlands' },
+    { icon: 'pin', title: 'Travel included', body: 'Free within 50 miles of Birmingham city centre' },
   ],
   extrasTitle: 'Add a little extra',
   extras: [
@@ -175,9 +191,9 @@ export const packages = {
 export const booking = {
   title: 'How booking works',
   steps: [
-    { title: 'Enquire', body: 'Send us your date and venue by WhatsApp, email or phone.' },
+    { title: 'Enquire', body: 'Send us your date and venue by WhatsApp or phone.' },
     { title: 'Check & quote', body: 'Grace checks availability and sends your quote and package options.' },
-    { title: 'Secure your date', body: 'We send a booking agreement, and a 20% deposit makes your date officially yours.' },
+    { title: 'Secure your date', body: 'We send a booking agreement, and a 20% deposit makes your date officially yours. The rest is due on the day at the latest.' },
     { title: 'Plan the night', body: 'We collect the details: venue, timings, first dance, set preferences and special requests.' },
     { title: 'Final check-in', body: 'A last catch-up before the day to confirm timings and songs.' },
     { title: 'Party time', body: 'We arrive, set up and soundcheck, then it’s live music and a full dancefloor.' },
@@ -211,11 +227,11 @@ export const faq = [
   { q: 'Can we see you play before we book?', a: 'Yes. We play public gigs so couples can see us live. They’re all listed on our Facebook page.' },
   { q: 'Will you learn our first dance?', a: 'Absolutely, and it’s included in the price. Just give us a little notice.' },
   { q: 'Can we choose the songs?', a: 'Yes. You can choose and veto songs from our setlist, plus pick three extra requests. More than that may incur a small additional cost.' },
-  { q: 'What if a band member is ill?', a: 'Every role apart from Grace and Mick has a trusted, rehearsed dep, so we always have cover and never cancel a gig.' },
-  { q: 'How far do you travel?', a: 'Anywhere within about two hours of the West Midlands. Further afield is quoted individually to cover travel.' },
+  { q: 'What if a band member is ill?', a: 'Every role apart from Grace and Mick has a trusted, rehearsed deputy musician. If anyone is ill, Grace will talk you through the plan as soon as possible.' },
+  { q: 'How far do you travel?', a: 'We travel up to 50 miles from Birmingham city centre free of charge. Any mileage beyond that is charged at a reasonable rate.' },
   { q: 'What do you need from the venue?', a: 'A space of at least 5m × 3m, two 13-amp sockets, somewhere to change and a bite to eat. We’re happy to play with a noise limiter, and all our equipment is PAT tested.' },
   { q: 'Are you insured?', a: 'Yes. We carry £5 million public liability insurance with Aviva, and all our equipment is PAT tested (most recently in August 2025).' },
   { q: 'How long do you need to set up?', a: 'About 1.5 hours to unload, set up and soundcheck, and around 45 minutes to pack down.' },
-  { q: 'How do we secure our date?', a: 'A 20% deposit within a month of booking secures your date. Most couples book around a year ahead, so it’s worth getting in touch early.' },
+  { q: 'How do we secure our date?', a: 'A 20% deposit within a month of booking secures your date, and the balance is due on the day of your performance at the latest. Most couples book around a year ahead, so it’s worth getting in touch early.' },
   { q: 'What do you wear?', a: 'Our signature look: green, with white shirts and black trousers for the men and plenty of sparkle for the women.' },
 ]

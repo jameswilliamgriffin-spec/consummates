@@ -3,15 +3,15 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { setlist } from '../content'
-import { INOUT, OUT, lenis, reduceMotion, scrollToHash } from '../lib/motion'
+import { INOUT, OUT, reduceMotion, scrollToHash } from '../lib/motion'
 
-const OPEN = 'consummates:open-setlist'
-export const openSetlist = () => window.dispatchEvent(new Event(OPEN))
+import { SETLIST_OPEN } from '../lib/dialogEvents'
 
 export function FullSetlist() {
   const dialog = useRef<HTMLDialogElement>(null)
   const panel = useRef<HTMLDivElement>(null)
   const closing = useRef(false)
+  const afterClose = useRef<(() => void) | undefined>(undefined)
 
   const favourites = setlist.songs.filter((s) => s.favourite).sort((a, b) => a.favourite! - b.favourite!)
   const rest = setlist.songs.filter((s) => !s.favourite && !s.christmas)
@@ -20,9 +20,10 @@ export function FullSetlist() {
   useEffect(() => {
     const open = () => {
       const d = dialog.current!, p = panel.current!
+      if (d.open) return
       d.showModal()
       p.scrollTop = 0
-      lenis?.stop()
+
       if (reduceMotion) return
       gsap.fromTo(p, { yPercent: 100 }, { yPercent: 0, duration: 1.2, ease: INOUT })
       gsap.fromTo(p.querySelectorAll('.fullset__head > *, .fullset__fav'), { y: 60, opacity: 0 },
@@ -30,16 +31,19 @@ export function FullSetlist() {
       gsap.fromTo(p.querySelectorAll('.fullset__row'), { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, ease: OUT, stagger: 0.025, delay: 0.85 })
     }
-    window.addEventListener(OPEN, open)
-    return () => window.removeEventListener(OPEN, open)
+    window.addEventListener(SETLIST_OPEN, open)
+    return () => window.removeEventListener(SETLIST_OPEN, open)
   }, [])
 
   const close = (then?: () => void) => {
     if (closing.current) return
-    const finish = () => { dialog.current!.close(); closing.current = false; then?.() }
+    afterClose.current = then
+    const finish = () => { dialog.current!.close(); closing.current = false }
     if (reduceMotion) return finish()
     closing.current = true
-    gsap.to(panel.current, { yPercent: 100, duration: 0.9, ease: INOUT, onComplete: finish })
+    gsap.killTweensOf(panel.current)
+    gsap.killTweensOf(panel.current!.querySelectorAll('.fullset__head > *, .fullset__fav, .fullset__row'))
+    gsap.to(panel.current, { yPercent: 100, duration: 0.4, ease: INOUT, onComplete: finish })
   }
 
   return (
@@ -48,9 +52,14 @@ export function FullSetlist() {
       ref={dialog}
       aria-label="The full setlist"
       onCancel={(e) => { e.preventDefault(); close() }}
-      onClose={() => lenis?.start()}
+      onClose={() => {
+
+        const next = afterClose.current
+        afterClose.current = undefined
+        next?.()
+      }}
     >
-      <div className="fullset__panel" ref={panel} data-lenis-prevent>
+      <div className="fullset__panel" ref={panel}>
         <button className="fullset__close" onClick={() => close()} aria-label="Close the setlist">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
         </button>
@@ -96,7 +105,7 @@ export function FullSetlist() {
 
         <footer className="fullset__foot">
           <p>Got a song you need on the night? Ask us. Learning your first dance is included.</p>
-          <button className="btn btn--gold" onClick={() => close(() => scrollToHash('#contact'))}>Get in touch</button>
+          <button className="btn btn--gold" onClick={() => close(() => scrollToHash('#contact', true))}>Get in touch</button>
         </footer>
       </div>
     </dialog>

@@ -3,6 +3,8 @@ import { FacebookLogo } from '../brand/Social'
 import { contact } from '../content'
 import { scrollToHash } from '../lib/motion'
 
+const currentYear = new Date().getFullYear()
+
 export function Footer() {
   const go = (e: React.MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToHash(e.currentTarget.getAttribute('href')!) }
   return (
@@ -11,14 +13,14 @@ export function Footer() {
       <div className="footer__row">
         <p>Live wedding &amp; party band · West Midlands</p>
         <nav aria-label="Footer">
-          <a href="#band" onClick={go}>The band</a>
+          <a href="#band" onClick={go}>The Band</a>
           <a href="#packages" onClick={go}>Packages</a>
           <a href="#faq" onClick={go}>FAQ</a>
           <a className="footer__fb" href={contact.facebook} target="_blank" rel="noopener"><FacebookLogo />Facebook</a>
           <a href={contact.instagram} target="_blank" rel="noopener">Instagram</a>
           <a href="#top" onClick={go}>Back to top ↑</a>
         </nav>
-        <p>© {new Date().getFullYear()} The Consummates</p>
+        <p>© {currentYear} The Consummates</p>
       </div>
     </footer>
   )

@@ -1,9 +1,7 @@
 /* "Watch the film": the full promo with sound, in a dialog. Opened from anywhere via openFilm(). */
 import { useEffect, useRef } from 'react'
-import { lenis } from '../lib/motion'
 
-const OPEN = 'consummates:open-film'
-export const openFilm = () => window.dispatchEvent(new Event(OPEN))
+import { FILM_OPEN } from '../lib/dialogEvents'
 
 export function FilmModal() {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -11,17 +9,18 @@ export function FilmModal() {
 
   useEffect(() => {
     const open = () => {
+      if (dialog.current!.open) return
       dialog.current!.showModal()
-      lenis?.stop()
+
       video.current!.currentTime = 0
       video.current!.play().catch(() => {})
     }
-    window.addEventListener(OPEN, open)
-    return () => window.removeEventListener(OPEN, open)
+    window.addEventListener(FILM_OPEN, open)
+    return () => window.removeEventListener(FILM_OPEN, open)
   }, [])
 
   const close = () => dialog.current!.close()
-  const onClose = () => { video.current!.pause(); lenis?.start() }
+  const onClose = () => { video.current!.pause();  }
 
   return (
     <dialog

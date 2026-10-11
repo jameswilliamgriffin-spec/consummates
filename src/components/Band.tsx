@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { band, type Member } from '../content'
-import { INOUT, OUT, canHover, lenis, reduceMotion } from '../lib/motion'
+import { INOUT, OUT, canHover, reduceMotion } from '../lib/motion'
 
 const members = band.members
 const TBD = () => <span className="tbd">To follow</span>
@@ -149,13 +149,13 @@ function Profile({ index, source, onClose, onJump }: {
     if (was === null) {
       // opening: the clicked photo grows into place
       d.showModal()
-      lenis?.stop()
+
       if (reduceMotion) return
       const src = source.current?.getBoundingClientRect()
       const tgt = photo.getBoundingClientRect()
       gsap.fromTo(d.querySelector('.pro__bg'), { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' })
       if (src && src.width) {
-        source.current!.style.visibility = 'hidden'
+        gsap.set(source.current, { visibility: 'hidden' })
         gsap.fromTo(photo,
           { x: src.left - tgt.left, y: src.top - tgt.top, scaleX: src.width / tgt.width, scaleY: src.height / tgt.height, transformOrigin: '0 0' },
           { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 1, ease: INOUT, clearProps: 'transform' })
@@ -178,6 +178,7 @@ function Profile({ index, source, onClose, onJump }: {
     }
     if (reduceMotion) return finish()
     busy.current = true
+    gsap.killTweensOf(d.querySelectorAll('.pro__photo, .pro__info > *, .pro__strip, .pro__close, .pro__bg'))
     const photo = d.querySelector<HTMLElement>('.pro__photo')!
     const card = document.querySelector<HTMLElement>(`[data-photo="${members[index].name}"]`)
     const src = card?.getBoundingClientRect()
@@ -185,11 +186,11 @@ function Profile({ index, source, onClose, onJump }: {
     const onScreen = src && src.bottom > 0 && src.top < innerHeight
     document.querySelectorAll<HTMLElement>('[data-photo]').forEach((el) => { el.style.visibility = el === card ? 'hidden' : '' })
     gsap.to(d.querySelectorAll('.pro__info > *, .pro__strip, .pro__close'), { opacity: 0, duration: 0.35, ease: 'power2.in' })
-    gsap.to(d.querySelector('.pro__bg'), { opacity: 0, duration: 0.7, delay: 0.25, ease: 'power2.inOut' })
+    gsap.to(d.querySelector('.pro__bg'), { opacity: 0, duration: 0.4, delay: 0.05, ease: 'power2.inOut' })
     if (onScreen && src) {
       gsap.to(photo, {
         x: src.left - tgt.left, y: src.top - tgt.top, scaleX: src.width / tgt.width, scaleY: src.height / tgt.height,
-        transformOrigin: '0 0', duration: 0.9, ease: INOUT, onComplete: finish,
+        transformOrigin: '0 0', duration: 0.45, ease: INOUT, onComplete: finish,
       })
     } else {
       gsap.to(photo, { opacity: 0, scale: 0.96, duration: 0.5, ease: 'power2.in', onComplete: finish })
@@ -199,8 +200,8 @@ function Profile({ index, source, onClose, onJump }: {
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (!dialog.current?.open || index === null) return
-      if (e.key === 'ArrowRight') onJump((index + 1) % count)
-      if (e.key === 'ArrowLeft') onJump((index - 1 + count) % count)
+      if (!busy.current && e.key === 'ArrowRight') onJump((index + 1) % count)
+      if (!busy.current && e.key === 'ArrowLeft') onJump((index - 1 + count) % count)
     }
     window.addEventListener('keydown', key)
     return () => window.removeEventListener('keydown', key)
@@ -215,7 +216,7 @@ function Profile({ index, source, onClose, onJump }: {
         const d = dialog.current!
         gsap.set(d.querySelectorAll('.pro__photo, .pro__info > *, .pro__strip, .pro__close, .pro__bg'), { clearProps: 'all' })
         document.querySelectorAll<HTMLElement>('[data-photo]').forEach((el) => { el.style.visibility = '' })
-        lenis?.start(); onClose()
+        onClose()
       }}
     >
       <div className="pro__bg" aria-hidden="true" />
@@ -223,7 +224,7 @@ function Profile({ index, source, onClose, onJump }: {
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
       </button>
       {m && (
-        <div className="pro__scroll" data-lenis-prevent>
+        <div className="pro__scroll">
           <div className="pro__grid">
             <div className="pro__photo"><Photo m={m} /></div>
             <div className="pro__info">
@@ -255,18 +256,18 @@ function Profile({ index, source, onClose, onJump }: {
           </div>
 
           <nav className="pro__strip" aria-label="The band">
-            <button className="pro__arrow" onClick={() => onJump((index! - 1 + count) % count)} aria-label="Previous musician"><Arrow dir={-1} /></button>
+            <button className="pro__arrow" onClick={() => !busy.current && onJump((index! - 1 + count) % count)} aria-label="Previous musician"><Arrow dir={-1} /></button>
             <ol>
               {members.map((p, i) => (
                 <li key={p.name}>
-                  <button className={`pro__thumb${i === index ? ' is-current' : ''}`} onClick={() => onJump(i)} aria-label={`${p.name}, ${p.role}`} aria-current={i === index}>
+                  <button className={`pro__thumb${i === index ? ' is-current' : ''}`} onClick={() => !busy.current && onJump(i)} aria-label={`${p.name}, ${p.role}`} aria-current={i === index}>
                     {p.photo ? <img src={p.photo} alt="" loading="lazy" /> : <span>{p.name[0]}</span>}
                     <em>{p.name}</em>
                   </button>
                 </li>
               ))}
             </ol>
-            <button className="pro__arrow" onClick={() => onJump((index! + 1) % count)} aria-label="Next musician"><Arrow /></button>
+            <button className="pro__arrow" onClick={() => !busy.current && onJump((index! + 1) % count)} aria-label="Next musician"><Arrow /></button>
           </nav>
         </div>
       )}

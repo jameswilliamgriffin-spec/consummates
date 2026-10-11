@@ -3,16 +3,9 @@
    two add-ons with large hand-drawn icons (a turntable that spins, a microphone that sings). */
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { MeshGradient } from '@paper-design/shaders-react'
 import { packages } from '../content'
 import { OUT, reduceMotion, scrollToHash } from '../lib/motion'
-import { LITE, ShaderBox } from './ShaderBox'
-
-const METALS: Record<string, string[]> = {
-  silver: ['#F4F6F8', '#BFC8D0', '#8C97A1', '#E3E8ED'],
-  gold: ['#F8E7B0', '#D3AC55', '#A57828', '#F2D589'],
-  platinum: ['#F7F3FB', '#D8D2E8', '#B6C5D6', '#E9DAEC'], // pearly, with a faint iridescence
-}
+import { ShaderBox } from './ShaderBox'
 
 const spotlight = (e: React.PointerEvent<HTMLElement>) => {
   const r = e.currentTarget.getBoundingClientRect()
@@ -102,8 +95,7 @@ export function Packages() {
   }, [])
 
   return (
-    <section className="packages stack-under" id="packages" ref={ref}>
-      <div className="stack-under__dim" aria-hidden="true" />
+    <section className="packages" id="packages" ref={ref}>
       <header className="packages__head">
         <h2 className="packages__title">{packages.title}</h2>
         <p className="packages__intro">{packages.intro}</p>
@@ -112,17 +104,7 @@ export function Packages() {
       <div className="tiers">
         {packages.tiers.map((t) => (
           <article className={`tier tier--${t.metal}${t.featured ? ' tier--featured' : ''}`} key={t.name} onPointerMove={spotlight}>
-            <ShaderBox className="tier__metal">
-              <MeshGradient
-                {...LITE}
-                style={{ width: '100%', height: '100%' }}
-                colors={METALS[t.metal]}
-                distortion={0.85}
-                swirl={0.45}
-                speed={reduceMotion ? 0 : 0.28}
-                grainOverlay={0.08}
-              />
-            </ShaderBox>
+            <ShaderBox className="tier__metal" preset={t.metal} />
             <span className="tier__sheen" aria-hidden="true" />
             <span className="tier__spot" aria-hidden="true" />
             <div className="tier__content">

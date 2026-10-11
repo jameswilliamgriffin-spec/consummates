@@ -1,7 +1,6 @@
 /* Elevator pitch + venue marquee, on ivory, straight after the hero. */
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { pitch, venues } from '../content'
 import { reduceMotion, scrollToHash } from '../lib/motion'
 import { DiscoBall } from './DiscoBall'
@@ -13,16 +12,14 @@ function Marquee() {
     const track = ref.current!.querySelector<HTMLElement>('.marquee__track')!
     // the track holds two copies; slide one copy's width, then wrap
     const loop = gsap.to(track, { xPercent: -50, duration: 38, ease: 'none', repeat: -1 })
-    // scrolling speeds it up (in the direction of travel), then it eases back
-    const st = ScrollTrigger.create({
-      trigger: ref.current, start: 'top bottom', end: 'bottom top',
-      onUpdate: (self) => {
-        const v = self.getVelocity() / 260
-        gsap.to(loop, { timeScale: Math.max(-6, Math.min(6, 1 + v)), duration: 0.25, overwrite: true })
-        gsap.to(loop, { timeScale: 1, duration: 1.2, delay: 0.25, ease: 'power2.out' })
-      },
-    })
-    return () => { loop.kill(); st.kill() }
+    let visible = false
+    const update = () => loop.paused(!visible || document.hidden)
+    const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update() })
+    io.observe(ref.current!)
+    document.addEventListener('visibilitychange', update)
+    update()
+    return () => { loop.kill(); io.disconnect(); document.removeEventListener('visibilitychange', update) }
+
   }, [])
   const items = [...venues, ...venues]
   return (
