@@ -11,7 +11,7 @@ export const contact = {
   manager: 'Grace',
   // Web3Forms access key for the enquiry form (web3forms.com). Not secret: it can only send to the
   // inbox it was created for. Leave empty and the form runs in preview mode (nothing is sent).
-  formAccessKey: '',
+  formAccessKey: '66103bf1-963f-4565-940e-24842de25822',
 }
 
 export const pitch = {
