@@ -3,11 +3,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { Intro } from './components/Intro'
-import { ScrollFilm } from './components/ScrollFilm'
 import { Story } from './components/Story'
 import { Night } from './components/Night'
 import { Band } from './components/Band'
 import { Gallery } from './components/Gallery'
+import { Videos } from './components/Videos'
 import { Setlist } from './components/Setlist'
 import { Packages } from './components/Packages'
 import { Booking } from './components/Booking'
@@ -38,11 +38,11 @@ export default function App() {
         <Hero />
         <Intro />
         <Band />
+        <Packages />
         <Setlist />
+        <Videos />
         <Gallery />
         <Testimonials />
-        <Packages />
-        <ScrollFilm />
         <Story />
         <Night />
         <Booking />

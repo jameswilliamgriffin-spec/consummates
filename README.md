@@ -48,3 +48,12 @@ It never locks or advances the page automatically. The source frame-building scr
 `scroll-film/build-frames.sh` in the parent project.
 The email option is hidden until the mailbox is ready. Decorative shaders load on demand and unmount offscreen. Reduced motion uses static imagery and
 fully visible, unpinned content. Reviews have a pause control and stop while keyboard focus is inside.
+
+## Latest YouTube videos
+
+`Videos.tsx` displays the latest three uploads from @TheConsummatesUK before the photo gallery.
+`api/youtube.js` reads the verified channel's public Atom feed on Vercel, with a three-hour CDN
+cache and an eight-second upstream timeout. No API key is required. The player uses YouTube's
+privacy-enhanced embed and loads on click. A verified showreel remains available if the feed
+fails or when using plain `npm run dev`/`npm run preview`, which do not run Vercel functions.
+Use Vercel's local development environment to exercise the endpoint alongside the frontend.

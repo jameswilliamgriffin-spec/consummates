@@ -58,6 +58,7 @@ export function Intro() {
   return (
     <section className="intro" data-nav="dark" aria-label="About The Consummates" ref={ref}>
       <div className="intro__inner">
+        <h2 className="intro__heading">Your wedding band in Birmingham and the West Midlands</h2>
         <p className="intro__statement">
           {words.map((w, i) => (
             <span key={i}>

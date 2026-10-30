@@ -38,6 +38,9 @@ function Photo({ m }: { m: Member }) {
 }
 
 const FavLine = ({ m }: { m: Member }) => {
+  if (m.favouriteGenres?.length) return (
+    <span className="fav"><Note /><span>Loves singing <b>{m.favouriteGenres[0].genre}</b></span></span>
+  )
   const f = m.favourites?.[0]
   if (!f) return <span className="fav fav--tbd">Favourite song to follow</span>
   return (
@@ -65,10 +68,10 @@ function Feature({ m, onOpen }: { m: Member; onOpen: (el: HTMLElement) => void }
   )
 }
 
-function Crew({ m, onOpen }: { m: Member; onOpen: (el: HTMLElement) => void }) {
+function Crew({ m, onOpen, className }: { m: Member; onOpen: (el: HTMLElement) => void; className?: string }) {
   const photo = useRef<HTMLDivElement>(null)
   return (
-    <li>
+    <li className={className}>
       <button className="crew" data-meet={m.name} onClick={() => onOpen(photo.current!)} aria-label={`Meet ${m.name}, ${m.role}`}>
         <div className="crew__frame">
           <div className="crew__photo" ref={photo} data-photo={m.name}><Photo m={m} /></div>
@@ -236,8 +239,14 @@ function Profile({ index, source, onClose, onJump }: {
                 {m.background ? <p>{m.background}</p> : <p><TBD /></p>}
               </section>
               <section className="pro__sec">
-                <h3>{m.favourites && m.favourites.length > 1 ? 'Favourite songs to perform live' : 'Favourite song to perform live'}</h3>
-                {m.favourites?.length ? (
+                <h3>{m.favouriteGenres?.length ? 'Favourite genres' : m.favourites && m.favourites.length > 1 ? 'Favourite songs to perform live' : 'Favourite song to perform live'}</h3>
+                {m.favouriteGenres?.length ? (
+                  <ul className="pro__songs">
+                    {m.favouriteGenres.map((f) => (
+                      <li key={f.activity}><Note /><span>{f.activity}: <em>{f.genre}</em></span></li>
+                    ))}
+                  </ul>
+                ) : m.favourites?.length ? (
                   <ul className="pro__songs">
                     {m.favourites.map((f) => (
                       <li key={f.title}>
@@ -248,10 +257,10 @@ function Profile({ index, source, onClose, onJump }: {
                   </ul>
                 ) : <p><TBD /></p>}
               </section>
-              <aside className="pro__fact">
+              {(!m.favouriteGenres?.length || m.fact) && <aside className="pro__fact">
                 <Bulb />
                 <div><h3>Fun fact</h3><p>{m.fact ?? <TBD />}</p></div>
-              </aside>
+              </aside>}
             </div>
           </div>
 
@@ -295,6 +304,8 @@ export function Band() {
         {core.map(({ m, i }) => <Feature m={m} key={m.name} onOpen={openAt(i)} />)}
       </div>
       <ul className="band__crew">
+        {/* on phones Grace and Mick join the grid as ordinary cards (the big feature cards hide) */}
+        {core.map(({ m, i }) => <Crew m={m} key={`core-${m.name}`} onOpen={openAt(i)} className="crew-item--core" />)}
         {rest.map(({ m, i }) => <Crew m={m} key={m.name} onOpen={openAt(i)} />)}
       </ul>
 

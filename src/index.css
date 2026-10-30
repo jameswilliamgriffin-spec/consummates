@@ -161,6 +161,7 @@ a { color: inherit; }
 .disco { position: relative; display: inline-block; width: 0.9em; height: 0.9em; vertical-align: -0.14em; margin-left: 0.14em; }
 .disco canvas { position: absolute; left: -60%; top: -60%; width: 220%; height: 220%; pointer-events: none; }
 .intro__body { max-width: 46ch; font-size: 17px; color: var(--ink-soft); }
+.intro__heading { max-width: 28ch; margin: 0; font: 400 clamp(24px, 3vw, 38px)/1.2 var(--serif); color: var(--ink); text-wrap: balance; }
 .intro__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 .intro__venues-label {
   max-width: 1080px; margin: clamp(80px, 12vh, 140px) auto 18px; padding: 0 var(--gutter); text-align: center;
@@ -330,6 +331,7 @@ a { color: inherit; }
 /* ── Band: 2 feature cards, then 4 + 4 crew cards ── */
 .band__intro strong { color: var(--moss); font-weight: 600; }
 .band__featured { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.2vw, 30px); }
+.crew-item--core { display: none; }
 .band__crew { max-width: 1280px; margin: clamp(18px, 2.2vw, 30px) auto 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(18px, 2.2vw, 30px); }
 
 /* feature card (Grace, Mick) */
@@ -925,7 +927,9 @@ a { color: inherit; }
   .events__list { columns: 1; }
   .nav__social { width: 40px; height: 40px; }
   .nav__end { gap: 8px; }
-  .band__crew { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .band__crew { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 0; }
+  .band__featured { display: none; }
+  .crew-item--core { display: block; }
   .feat { grid-template-columns: 1fr; }
   .crew__label { left: 14px; bottom: 12px; right: 56px; }
   .crew__name { font-size: 28px; }
@@ -956,7 +960,10 @@ html:has(dialog[open]) { overflow: hidden; }
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 12px 20px; background: var(--ivory); color: var(--ink); transform: translateY(-160%); }
 .skip-link:focus { transform: none; }
 .hero__pause { position: absolute; right: var(--gutter); bottom: 24px; z-index: 2; padding: 12px 16px; min-height: 44px; border: 1px solid #ffffff66; border-radius: 999px; background: #0e171277; font-size: 12px; }
-@media (max-width: 640px) { .hero__pause { bottom: auto; top: 88px; } }
+@media (max-width: 640px) {
+  .hero__pause { top: auto; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+  .hero__foot { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; }
   .night { height: auto; min-height: 0; }
@@ -979,3 +986,40 @@ html:has(dialog[open]) { overflow: hidden; }
 @media (max-width: 380px) { .nav__end { gap: 6px; } .nav__cta { padding-inline: 12px; } .nav__socials { gap: 4px; } .nav__social { width: 38px; height: 38px; } }
 
 .words__pause { padding: 10px 16px; min-height: 44px; font-size: 12px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 4px; }
+
+/* User-controlled gallery and full-size photo viewer. */
+.gallery__controls { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.gallery__controls p { color: var(--cream-soft); font-size: 14px; }
+.gallery__controls > div { display: flex; gap: 10px; }
+.gallery__controls button, .gallery-lightbox button { width: 48px; height: 48px; border: 1px solid currentColor; border-radius: 50%; color: var(--cream); background: transparent; font-size: 24px; cursor: pointer; }
+.gallery__rail { display: flex; gap: clamp(14px, 2vw, 28px); overflow-x: auto; padding: 0 var(--gutter) 24px; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); scrollbar-color: var(--gold-soft) var(--night); scrollbar-width: thin; }
+.gallery__photo { flex: 0 0 auto; width: clamp(280px, 44vw, 680px); height: clamp(240px, 32vw, 440px); padding: 0; border: 0; border-radius: var(--radius); overflow: hidden; background: var(--night); cursor: zoom-in; scroll-snap-align: start; }
+.gallery__photo img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-lightbox { position: fixed; inset: 0; margin: auto; width: min(1400px, 96vw); max-width: 96vw; max-height: 96dvh; padding: 62px 20px 20px; border: 0; background: #0e1712; color: var(--cream); border-radius: var(--radius); }
+.gallery-lightbox::backdrop { background: rgb(0 0 0 / .9); }
+.gallery-lightbox__close { position: absolute; right: 14px; top: 8px; }
+.gallery-lightbox__stage { display: flex; align-items: center; justify-content: center; height: min(72dvh, 850px); touch-action: pan-y pinch-zoom; }
+.gallery-lightbox__stage img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.gallery-lightbox__controls { display: flex; gap: 28px; justify-content: center; align-items: center; padding-top: 14px; }
+@media (max-width: 600px) { .gallery__photo { width: 82vw; height: 64vw; } .gallery-lightbox { padding-inline: 10px; } }
+
+/* Latest channel uploads: featured film, with smaller additions as the channel grows. */
+.videos { background: var(--night); padding: var(--section-y) var(--gutter); color: var(--cream); }
+.videos__head, .videos__grid { max-width: 1280px; margin-inline: auto; }
+.videos__head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
+.videos__head h2 { font: 300 clamp(44px, 5.6vw, 92px)/1 var(--serif); margin-bottom: 20px; }
+.videos__head p { max-width: 52ch; color: var(--cream-soft); }
+.videos__head > a { flex-shrink: 0; text-decoration: underline; text-underline-offset: 5px; }
+.videos__grid { display: grid; gap: 28px; }
+.videos__grid--multiple { grid-template-columns: 2fr 1fr; }
+.videos__grid--multiple .videos__card:first-child { grid-row: span 2; }
+.videos__player { aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: #000; }
+.videos__player button { position: relative; display: block; width: 100%; height: 100%; border: 0; padding: 0; cursor: pointer; background: #000; }
+.videos__player img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+.videos__player iframe { width: 100%; height: 100%; border: 0; }
+.videos__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--cream); color: var(--night); font-size: 26px; }
+.videos__caption { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.videos__caption h3 { font: 400 24px/1.25 var(--serif); }
+.videos__caption a, .videos__label { font-size: 12px; color: var(--cream-soft); }
+.videos__label { margin-top: 8px; }
+@media (max-width: 767px) { .videos__head { align-items: start; flex-direction: column; } .videos__grid--multiple { grid-template-columns: 1fr; } }

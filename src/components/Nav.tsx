@@ -10,8 +10,8 @@ import { reduceMotion, scrollToHash } from '../lib/motion'
 
 const LINKS = [
   { href: '#band', label: 'The Band' },
-  { href: '#setlist', label: 'Setlist' },
   { href: '#packages', label: 'Packages' },
+  { href: '#setlist', label: 'Setlist' },
   { href: '#about', label: 'Our story' },
   { href: '#faq', label: 'FAQ' },
 ]

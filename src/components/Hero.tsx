@@ -51,11 +51,11 @@ export function Hero() {
         <div className="hero__veil" />
       </div>
       <div className="hero__inner">
-        <h1 className="hero__logo"><Logo /></h1>
+        <div className="hero__logo"><Logo /></div>
         <div className="hero__cta"><button className="btn btn--ghost" onClick={openFilm}><span className="btn__play" aria-hidden="true" />Watch us play.</button></div>
       </div>
       <div className="hero__foot">
-        <p className="hero__eyebrow">Live wedding &amp; party band · West Midlands</p>
+        <h1 className="hero__eyebrow">Wedding band for Birmingham &amp; the West Midlands</h1>
         <p className="hero__line">Your first dance to the very last song</p>
       </div>
       {!reduceMotion && <button className="hero__pause" onClick={() => setPaused(p => !p)}>{paused ? 'Play background video' : 'Pause video'}</button>}

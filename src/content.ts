@@ -17,7 +17,7 @@ export const contact = {
 export const pitch = {
   statement:
     'A close-knit band of friends with big harmonies, real musicians and one job on your wedding night: a dancefloor that stays full from your first dance to the very last song.',
-  body: 'Everything you hear is played live, and Grace looks after the planning from your first message.',
+  body: 'We’re The Consummates, a live wedding band serving Birmingham and the West Midlands. Everything you hear is played live, and Grace looks after the planning from your first message. We’ll learn your first dance and build an evening of pop, rock, funk and disco around the songs you love.',
 }
 
 export const venues = [
@@ -59,6 +59,7 @@ export type Member = {
   quote?: string        // optional one-liner under the role
   background?: string   // musical background
   favourites?: Fav[]    // favourite songs to perform live
+  favouriteGenres?: { activity: string; genre: string }[]
   fact?: string         // fun fact
 }
 
@@ -77,7 +78,7 @@ export const band = {
       background: 'First guitar at 14. First public performance in 1994 at Menzies High School: “beyond terrifying”. Switched to bass in 2002, when he realised it was more fun and his band at the time had too many guitarists.',
       favourites: [{ title: 'Grease', artist: 'Frankie Valli', cover: '/img/covers/grease.webp' }],
       fact: 'Once met Michael Sheen and called him Martin by mistake. “I get that a lot,” he replied.' },
-    { name: 'Martin', role: 'Guitar', photo: '/img/band/martin.webp',
+    { name: 'Martin', role: 'Lead guitar', photo: '/img/band/martin.webp',
       background: '32 years on guitar, including keys and guitar in Blondie tribute band Once More Into The Bleach. Best gig: Liverpool’s Mathew Street Festival.',
       favourites: [{ title: 'Proud Mary', artist: 'Ike & Tina Turner', cover: '/img/covers/proud-mary.webp' }],
       fact: 'Playing at the Rose of Tralee festival in Ireland, he was asked to lend his acoustic guitar to the boy band on after them. It turned out to be Westlife.' },
@@ -110,7 +111,13 @@ export const band = {
     { name: 'Maddy', role: 'Backing vocals', photo: '/img/band/maddy.webp',
       background: 'Trained in musical theatre at the University of Chichester, where she took a degree in Musical Theatre Performance, then went on to sing soul, pop and rock in cover bands. She also teaches singing in schools and privately.',
       favourites: [{ title: 'Grease', artist: 'Frankie Valli', cover: '/img/covers/grease.webp' }] },
-    { name: 'Betsy', role: 'Backing vocals', photo: '/img/band/betsy.webp' },
+    { name: 'Betsy', role: 'Backing vocals', photo: '/img/band/betsy-portrait.webp',
+      background: 'An award-winning international singer, predominantly on the vintage and jazz scene, Betsy blends silky smooth vocals with classy, soulful tones and a powerful rock and pop edge. As her name suggests, Betsy’s harmonies are always on fire! With nearly four decades as a professional musician — singer, percussionist, sax player and keyboardist — Betsy brings her unique, vibrant energy and stage presence to every performance.',
+      favouriteGenres: [
+        { activity: 'To sing', genre: 'Jazz' },
+        { activity: 'To dance to', genre: 'Ska / 2 Tone' },
+        { activity: 'To dance and sing to', genre: 'Disco' },
+      ] },
   ] as Member[],
 }
 
@@ -228,7 +235,7 @@ export const faq = [
   { q: 'Will you learn our first dance?', a: 'Absolutely, and it’s included in the price. Just give us a little notice.' },
   { q: 'Can we choose the songs?', a: 'Yes. You can choose and veto songs from our setlist, plus pick three extra requests. More than that may incur a small additional cost.' },
   { q: 'What if a band member is ill?', a: 'Every role apart from Grace and Mick has a trusted, rehearsed deputy musician. If anyone is ill, Grace will talk you through the plan as soon as possible.' },
-  { q: 'How far do you travel?', a: 'We travel up to 50 miles from Birmingham city centre free of charge. Any mileage beyond that is charged at a reasonable rate.' },
+  { q: 'Do you play weddings in Birmingham and across the West Midlands?', a: 'Yes. We’re a West Midlands wedding band performing in Birmingham and across the region. Travel within 50 miles of Birmingham city centre is included in our packages. For venues further afield, Grace can confirm availability and any additional mileage costs when you enquire.' },
   { q: 'What do you need from the venue?', a: 'A space of at least 5m × 3m, two 13-amp sockets, somewhere to change and a bite to eat. We’re happy to play with a noise limiter, and all our equipment is PAT tested.' },
   { q: 'Are you insured?', a: 'Yes. We carry £5 million public liability insurance with Aviva, and all our equipment is PAT tested (most recently in August 2025).' },
   { q: 'How long do you need to set up?', a: 'About 1.5 hours to unload, set up and soundcheck, and around 45 minutes to pack down.' },
