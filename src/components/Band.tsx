@@ -38,7 +38,7 @@ function Photo({ m }: { m: Member }) {
 }
 
 const FavLine = ({ m }: { m: Member }) => {
-  if (m.favouriteGenres?.length) return (
+  if (!m.favourites?.length && m.favouriteGenres?.length) return (
     <span className="fav"><Note /><span>Loves singing <b>{m.favouriteGenres[0].genre}</b></span></span>
   )
   const f = m.favourites?.[0]
@@ -239,14 +239,8 @@ function Profile({ index, source, onClose, onJump }: {
                 {m.background ? <p>{m.background}</p> : <p><TBD /></p>}
               </section>
               <section className="pro__sec">
-                <h3>{m.favouriteGenres?.length ? 'Favourite genres' : m.favourites && m.favourites.length > 1 ? 'Favourite songs to perform live' : 'Favourite song to perform live'}</h3>
-                {m.favouriteGenres?.length ? (
-                  <ul className="pro__songs">
-                    {m.favouriteGenres.map((f) => (
-                      <li key={f.activity}><Note /><span>{f.activity}: <em>{f.genre}</em></span></li>
-                    ))}
-                  </ul>
-                ) : m.favourites?.length ? (
+                <h3>{m.favourites && m.favourites.length > 1 ? 'Favourite songs to perform live' : 'Favourite song to perform live'}</h3>
+                {m.favourites?.length ? (
                   <ul className="pro__songs">
                     {m.favourites.map((f) => (
                       <li key={f.title}>
@@ -257,6 +251,10 @@ function Profile({ index, source, onClose, onJump }: {
                   </ul>
                 ) : <p><TBD /></p>}
               </section>
+              {m.favouriteGenres?.length && <section className="pro__sec">
+                <h3>Favourite genres</h3>
+                <ul className="pro__songs">{m.favouriteGenres.map(f => <li key={f.activity}><Note /><span>{f.activity}: <em>{f.genre}</em></span></li>)}</ul>
+              </section>}
               {(!m.favouriteGenres?.length || m.fact) && <aside className="pro__fact">
                 <Bulb />
                 <div><h3>Fun fact</h3><p>{m.fact ?? <TBD />}</p></div>

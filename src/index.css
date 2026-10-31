@@ -783,7 +783,8 @@ a { color: inherit; }
 .enquiry input:hover, .enquiry textarea:hover { border-color: rgba(26, 31, 27, 0.4); }
 .enquiry input:focus-visible, .enquiry textarea:focus-visible { outline: none; border-color: var(--moss); box-shadow: 0 0 0 3px rgba(47, 71, 58, 0.18); }
 .enquiry [aria-invalid="true"] { border-color: #a3392b !important; }
-.enquiry input[type="date"] { min-height: 49px; }
+.enquiry input[type="date"] { height: 50px; min-height: 0; min-width: 0; max-width: 100%; appearance: none; -webkit-appearance: none; }
+.enquiry input[type="date"]::-webkit-date-and-time-value { text-align: left; }
 .enquiry__error { font: 500 13.5px/1.4 var(--sans); color: #a3392b; }
 .enquiry__error--form { margin-top: -4px; }
 .enquiry__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; }

@@ -113,6 +113,8 @@ export const band = {
       favourites: [{ title: 'Grease', artist: 'Frankie Valli', cover: '/img/covers/grease.webp' }] },
     { name: 'Betsy', role: 'Backing vocals', photo: '/img/band/betsy-portrait.webp',
       background: 'An award-winning international singer, predominantly on the vintage and jazz scene, Betsy blends silky smooth vocals with classy, soulful tones and a powerful rock and pop edge. As her name suggests, Betsy’s harmonies are always on fire! With nearly four decades as a professional musician — singer, percussionist, sax player and keyboardist — Betsy brings her unique, vibrant energy and stage presence to every performance.',
+      favourites: [{ title: 'Sex on Fire' }],
+      fact: 'Betsy was cast in the film A Muppet Christmas Carol, but her scene was cut from the final film as she was too tall to work with The Muppets! (She’s 5ft 1″.)',
       favouriteGenres: [
         { activity: 'To sing', genre: 'Jazz' },
         { activity: 'To dance to', genre: 'Ska / 2 Tone' },
@@ -123,7 +125,32 @@ export const band = {
 
 export const gallery = {
   title: 'Real nights. Real dancefloors.',
-  images: Array.from({ length: 11 }, (_, i) => `/img/gallery/live-${String(i + 1).padStart(2, '0')}.webp`),
+  images: [
+    ...Array.from({ length: 11 }, (_, i) => `/img/gallery/live-${String(i + 1).padStart(2, '0')}.webp`),
+    '/img/gallery/client-oct-2026-01.webp',
+    '/img/gallery/client-oct-2026-02.webp',
+    '/img/gallery/client-oct-2026-03.webp',
+    '/img/gallery/client-oct-2026-04.webp',
+    '/img/gallery/client-oct-2026-05.webp',
+    '/img/gallery/client-oct-2026-06.webp',
+    '/img/gallery/client-oct-2026-07.webp',
+    '/img/gallery/client-oct-2026-08.webp',
+    '/img/gallery/client-oct-2026-09.webp',
+    '/img/gallery/client-oct-2026-10.webp',
+    '/img/gallery/client-oct-2026-11.webp',
+    '/img/gallery/client-oct-2026-12.webp',
+    '/img/gallery/client-oct-2026-13.webp',
+    '/img/gallery/client-oct-2026-14.webp',
+    '/img/gallery/client-oct-2026-15.webp',
+    '/img/gallery/client-oct-2026-16.webp',
+    '/img/gallery/client-oct-2026-17.webp',
+    '/img/gallery/client-oct-2026-18.webp',
+    '/img/gallery/client-oct-2026-19.webp',
+    '/img/gallery/client-oct-2026-20.webp',
+    '/img/gallery/client-oct-2026-21.webp',
+    '/img/gallery/client-oct-2026-22.webp',
+    '/img/gallery/client-oct-2026-23.webp',
+  ],
 }
 
 export type Song = { title: string; artist: string; cover: string; favourite?: number; christmas?: boolean }
@@ -175,9 +202,9 @@ export const packages = {
   title: 'Simple, honest pricing',
   intro: 'No hidden extras.',
   tiers: [
-    { name: 'Silver', metal: 'silver', price: '£1,100', features: ['2 × 45-minute live sets', 'Backing music between sets', '100% live', '5-piece band'] },
-    { name: 'Gold', metal: 'gold', price: '£1,250', features: ['2 × 45-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band'], featured: true },
-    { name: 'Platinum', metal: 'platinum', price: '£1,400', features: ['2 × 60-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band'] },
+    { name: 'Silver', metal: 'silver', price: '£900', features: ['2 × 45-minute live sets', 'Backing music between sets', '100% live', '6-piece band'] },
+    { name: 'Gold', metal: 'gold', price: '£1,100', features: ['2 × 45-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band'], featured: true },
+    { name: 'Platinum', metal: 'platinum', price: '£1,250', features: ['2 × 60-minute live sets', 'Full wrap-around live DJ', '100% live', '6-piece band'] },
   ],
   includedTitle: 'Every package includes',
   included: [
